@@ -37,7 +37,7 @@ func callers() *stack {
 	return &st
 }
 
-func Wrap(err error) *Error {
+func Wrap(err error) error {
 	if err == nil {
 		return nil
 	}
@@ -51,10 +51,10 @@ func New(message string) error {
 	return Wrap(errors.New(message))
 }
 
-func WrapExtra(err error, extra Extra) *Error {
+func WrapExtra(err error, extra Extra) error {
 	e := Wrap(err)
 	if e != nil {
-		e.extra = extra
+		e.(*Error).extra = extra
 	}
 	return e
 }
@@ -63,10 +63,10 @@ func NewExtra(message string, extra Extra) error {
 	return WrapExtra(errors.New(message), extra)
 }
 
-func WrapMessage(err error, message string) *Error {
+func WrapMessage(err error, message string) error {
 	e := Wrap(err)
 	if e != nil {
-		e.msg = message
+		e.(*Error).msg = message
 	}
 	return e
 }
