@@ -15,7 +15,10 @@ type Error struct {
 type Extra = map[string]interface{}
 
 func (e *Error) Error() string {
-	msg := e.err.Error()
+	msg := ""
+	if e.err != nil {
+		msg += e.err.Error()
+	}
 	if e.msg != "" {
 		msg += " " + e.msg
 	}
