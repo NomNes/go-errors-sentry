@@ -12,6 +12,10 @@ type Error struct {
 	msg   string
 }
 
+func (e *Error) Err() error {
+	return e.err
+}
+
 type Extra = map[string]interface{}
 
 func (e *Error) Error() string {
