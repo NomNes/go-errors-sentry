@@ -51,6 +51,16 @@ func Wrap(err error) error {
 	return &Error{err, callers(), nil, ""}
 }
 
+func Unwrap(err error) error {
+	if err == nil {
+		return nil
+	}
+	if e, ok := err.(*Error); ok {
+		return e.err
+	}
+	return err
+}
+
 func New(message string) error {
 	return Wrap(errors.New(message))
 }
